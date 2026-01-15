@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>谭镇俭的个人主页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #2b6cb0;
+      --primary-light: #3182ce;
+      --bg: #f7fafc;
+      --text: #2d3748;
+      --muted: #718096;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a365d, #2b6cb0);
+      color: #fff;
+      padding: 60px 20px 40px;
+      text-align: center;
+    }
+
+    header .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      margin-bottom: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    header p.subtitle {
+      font-size: 16px;
+      color: #e2e8f0;
+      max-width: 520px;
+      margin: 0 auto 16px;
+    }
+
+    .header-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .header-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(226,232,240,0.4);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .header-links a:hover {
+      background: #e2e8f0;
+      color: #1a365d;
+      border-color: transparent;
+    }
+
+    main {
+      max-width: 960px;
+      margin: -30px auto 40px;
+      padding: 0 16px 40px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 22px 22px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      border-left: 3px solid var(--primary);
+      padding-left: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #edf2f7;
+      color: #4a5568;
+    }
+
+    .timeline {
+      list-style: none;
+      margin-top: 6px;
+      border-left: 2px solid #e2e8f0;
+      padding-left: 14px;
+    }
+
+    .timeline li {
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .timeline li::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--primary);
+      position: absolute;
+      left: -15px;
+      top: 6px;
+    }
+
+    .timeline .time {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .timeline .title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .timeline .desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .project {
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      padding: 10px 12px;
+      background: #fdfdfd;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .project h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: #2d3748;
+    }
+
+    .project p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .project .meta {
+      font-size: 12px;
+      color: #a0aec0;
+    }
+
+    .contact-list {
+      list-style: none;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .contact-list li {
+      margin-bottom: 4px;
+    }
+
+    .contact-list a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .contact-list a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #a0aec0;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 40px 16px 30px;
+      }
+      header h1 {
+        font-size: 26px;
+      }
+      main {
+        margin-top: -24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="avatar">谭</div>
+    <h1>谭镇俭</h1>
+    <p class="subtitle">
+      前端开发者 / 技术爱好者 / 终身学习者 —— 用代码和设计把想法变成现实。
+    </p>
+    <div class="header-links">
+      <a href="#about">关于我</a>
+      <a href="#experience">经历</a>
+      <a href="#projects">项目</a>
+      <a href="#contact">联系</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="card">
+      <h2>关于我</h2>
+      <p>
+        大家好，我是谭镇俭，一名专注于 Web 前端方向的开发者，喜欢把复杂的问题拆解成优雅、易用的产品体验。
+        平时会折腾一些小工具、个人项目，也会记录学习与生活中的思考，希望通过持续输出和分享，遇见更多有趣的灵魂。
+      </p>
+      <div class="tag-list">
+        <span class="tag">前端开发</span>
+        <span class="tag">用户体验</span>
+        <span class="tag">产品思维</span>
+        <span class="tag">终身学习</span>
+      </div>
+    </section>
+
+    <section id="experience" class="card">
+      <h2>教育与经历</h2>
+      <ul class="timeline">
+        <li>
+          <div class="time">2023 - 至今</div>
+          <div class="title">某互联网公司 · 前端工程师</div>
+          <div class="desc">参与企业级 Web 应用的开发与维护，负责前端架构优化、性能调优与组件库建设。</div>
+        </li>
+        <li>
+          <div class="time">2019 - 2023</div>
+          <div class="title">某某大学 · 计算机相关专业</div>
+          <div class="desc">系统学习计算机基础、数据结构与算法、网络与操作系统，多次参与编程竞赛与实践项目。</div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="projects" class="card">
+      <h2>代表项目</h2>
+      <div class="project-list">
+        <div class="project">
+          <h3>个人知识博客</h3>
+          <p>一个记录技术笔记与生活随想的博客站点，支持 Markdown、标签分类与全文搜索。</p>
+          <div class="meta">技术栈：React / Next.js / Tailwind CSS</div>
+        </div>
+        <div class="project">
+          <h3>数据可视化后台</h3>
+          <p>为业务团队打造的数据看板，支持多维度筛选、图表联动和权限管理。</p>
+          <div class="meta">技术栈：Vue / ECharts / Node.js</div>
+        </div>
+        <div class="project">
+          <h3>效率小工具合集</h3>
+          <p>集合番茄钟、待办清单、习惯打卡等功能的 Web 小应用，专注提升个人效率。</p>
+          <div class="meta">技术栈：原生 JS / LocalStorage</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="card">
+      <h2>联系我</h2>
+      <p>如果你对我或我的项目感兴趣，欢迎通过以下方式找到我：</p>
+      <ul class="contact-list">
+        <li>邮箱：<a href="mailto:tan.zhenjian@example.com">tan.zhenjian@example.com</a></li>
+        <li>GitHub：<a href="https://github.com/your-github-name" target="_blank">github.com/your-github-name</a></li>
+        <li>微信：请搜索“your-wechat-id”（或在这里替换成你的真实微信号）。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> 谭镇俭 · 保留所有权利
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
