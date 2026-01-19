@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>谭镇俭 · Java 开发工程师</title>
+
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --card-bg: rgba(255, 255, 255, 0.86);
+            --primary: #007aff;
+            --text-main: #111827;
+            --text-sub: #6b7280;
+            --border-soft: rgba(255, 255, 255, 0.6);
+            --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.18);
+            --radius-lg: 22px;
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--bg);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            opacity: 0.8;
+
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+            background: radial-gradient(circle at top, #e5f0ff 0, #f5f5f7 45%, #f5f5f7 100%);
+            color: var(--text-main);
+        }
+
+        /* 顶部导航（iOS感） */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: rgba(245, 245, 247, 0.82);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .nav-inner {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-title {
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            font-size: 15px;
+        }
+        .nav-links a {
+            margin-left: 18px;
+            font-size: 14px;
+            color: var(--text-sub);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 999px;
+            transition: width 0.2s ease;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 页面容器 */
+        .container {
+            max-width: 980px;
+            margin: 32px auto 40px;
+            padding: 0 18px;
+        }
+
+        /* 顶部个人卡片 */
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+            gap: 22px;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+        .hero-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 26px 26px 24px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-soft);
+            animation: fadeUp 0.6s ease-out;
+            position: relative;
+        }
+        .hero-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .hero-sub {
+            font-size: 15px;
+            color: var(--text-sub);
+            margin-bottom: 16px;
+        }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(0, 122, 255, 0.08);
+            color: #0369d9;
+        }
+        .hero-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .hero-side {
+            background: radial-gradient(circle at top left, #e0edff 0, #ffffff 40%, #f5f5f7 100%);
+            border-radius: 28px;
+            padding: 20px 20px 18px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+            animation: fadeUp 0.7s ease-out;
+        }
+        .avatar-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007aff, #34c759);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+        .hero-side p {
+            margin: 4px 0;
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+        .hero-side p strong {
+            color: var(--text-main);
+        }
+
+        /* 模块标题 */
+        section {
+            margin-top: 26px;
+        }
+        section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        section h2::before {
+            content: "";
+            width: 6px;
+            height: 18px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, #007aff, #34c759);
+        }
+
+        /* 卡片 */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px 16px;
+            margin-top: 14px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+            animation: fadeUp 0.6s ease-out;
+        }
+        .card h3 {
+            margin: 0 0 6px;
+            font-size: 15px;
+        }
+        .card-sub {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 4px 0;
+        }
+        .card ul {
+            margin: 6px 0 0;
+            padding-left: 18px;
+        }
+        .card li {
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        /* 联系方式 */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px 10px 26px;
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        /* 动画 */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <div class="nav-title">谭镇俭 · Java 开发工程师</div>
+        <div class="nav-links">
+            <a href="#about">关于</a>
+            <a href="#education">教育经历</a>
+            <a href="#experience">工作经历</a>
+            <a href="#contact">联系我</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- 顶部个人信息 -->
+    <section class="hero" id="about">
+        <div class="hero-card">
+            <button class="language-toggle" onclick="toggleLanguage()">English / EN</button>
+            <div class="hero-title">你好，我是谭镇俭</div>
+            <div class="hero-sub">资深 Java 开发工程师 · 8 年经验 · 专注后端架构</div>
+            <div class="hero-tags">
+                <span class="tag">Java / Spring Boot / Spring Cloud</span>
+                <span class="tag">MySQL / Redis / RabbitMQ</span>
+                <span class="tag">微服务架构 · 分布式系统</span>
+            </div>
+            <p class="hero-desc">
+                我热衷于将复杂问题拆解为清晰的解决方案，并将系统从“可用”打磨至“稳定优雅”。
+                我的专长在于订单系统、数据平台、营销活动及企业级系统，涵盖业务逻辑实现与架构优化。
+            </p>
+        </div>
+
+        <div class="hero-side">
+            <div class="avatar-circle">TZ</div>
+            <p><strong>年龄：</strong> 32</p>
+            <p><strong>经验：</strong> 8 年 Java 开发</p>
+            <p><strong>专注：</strong> 后端 / 架构 / 性能优化</p>
+            <p><strong>地点：</strong> 中国（可远程）</p>
+        </div>
+    </section>
+
+    <!-- 教育经历 -->
+    <section id="education">
+        <h2>教育经历</h2>
+        <div class="card">
+            <h3>2013 – 2017 · 本科 · 计算机科学与技术</h3>
+            <div class="card-sub">北部湾大学</div>
+            <p>系统学习了数据结构、操作系统、计算机网络、数据库原理及软件工程。积极参加编程竞赛与实践项目，为软件开发奠定了坚实基础。</p>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section id="experience">
+        <h2>工作经历</h2>
+
+        <div class="card">
+            <h3>2023 – 至今 · 高级开发工程师 · 星云智慧科技有限公司</h3>
+            <div class="card-sub">负责核心业务系统架构设计及高并发场景下的系统稳定性保障</div>
+
+            <p><strong>项目 1：智能订单管理系统（架构负责人）</strong></p>
+            <p>技术栈：Java, Spring Boot, Spring Cloud, MySQL, Redis, RabbitMQ, Nginx, Docker, K8s</p>
+            <ul>
+                <li>主导从单体到微服务的架构演进，拆分为 12 个微服务（订单、库存、支付等）。</li>
+                <li>设计基于 Redis + Lua + 分布式锁的高并发库存扣减方案，确保零超卖。</li>
+                <li>通过消息队列实现订单异步处理，将峰值 TPS 从 2k 提升至 12k+。</li>
+                <li>搭建服务发现、配置中心、链路追踪及熔断降级等基础设施。</li>
+                <li>推进 Docker + K8s 容器化部署，实现弹性伸缩与运维效率提升。</li>
+                <li>搭建 ELK 日志平台，排查效率提升 70%，系统 SLA 达到 99.98%。</li>
+            </ul>
+
+            <p><strong>项目 2：企业数据可视化平台（后端负责人）</strong></p>
+            <p>技术栈：Java, Spring Boot, MyBatis, MySQL, Redis, ECharts, API Gateway</p>
+            <ul>
+                <li>设计数据聚合服务，支持 20+ 条业务线的数据接入与统一查询。</li>
+                <li>构建多维统计引擎，支持数据实时刷新（延迟 < 1s）。</li>
+                <li>设计多级缓存策略（本地 + Redis），响应速度提升约 60%。</li>
+                <li>负责 RBAC 权限控制、数据过滤、API 安全及审计日志。</li>
+                <li>减少运营团队约 80% 的人工统计工作量。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>2020 – 2023 · 全栈 Java 开发工程师 · 云三互动网络</h3>
+            <div class="card-sub">参与数据平台及营销系统的从 0 到 1 建设</div>
+
+            <p><strong>项目 1：内部数据分析平台（Java 负责人）</strong></p>
+            <p>技术栈：Java, Spring Boot, MyBatis-Plus, MySQL, Redis, Quartz, Vue</p>
+            <ul>
+                <li>开发多源数据采集、清洗及统计的后端服务。</li>
+                <li>基于 Quartz 构建分钟级调度系统，支撑 300+ 稳定任务。</li>
+                <li>优化 SQL、索引及分库分表策略，查询性能提升 3 倍。</li>
+                <li>设计统一报表 API，支持多种可视化组件。</li>
+                <li>服务日均 2k+ 访问量，为运营与产品团队提供核心决策数据。</li>
+            </ul>
+
+            <p><strong>项目 2：营销活动管理系统（全栈）</strong></p>
+            <p>技术栈：Java, Spring Boot, MySQL, Redis, JWT, Vue</p>
+            <ul>
+                <li>实现活动配置、用户参与及奖励发放的核心逻辑。</li>
+                <li>使用 Redis 进行限流与防刷，支持百万级用户并发。</li>
+                <li>设计奖励发放流程，支持延迟/批量发送及风控拦截。</li>
+                <li>引入 JWT 认证，增强安全性与扩展性。</li>
+                <li>支持 200+ 场营销活动，累计用户参与超千万。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>2017 – 2020 · Java 软件开发工程师 · 恒拓开源信息科技</h3>
+            <div class="card-sub">在政企系统中积累了扎实的工程实践能力</div>
+
+            <p><strong>项目 1：行政审批系统（核心开发）</strong></p>
+            <p>技术栈：Java, Spring MVC, MyBatis, Oracle, jQuery</p>
+            <ul>
+                <li>开发审批工作流引擎（节点配置、流转、回退、会签）。</li>
+                <li>设计数据库表结构并优化性能（索引、分区、存储过程）。</li>
+                <li>开发复杂审批表单及前端交互逻辑。</li>
+                <li>覆盖 20+ 个政府部门，日均审批量 50k+。</li>
+            </ul>
+
+            <p><strong>项目 2：企业人力资源管理系统</strong></p>
+            <p>技术栈：Java, Spring, MyBatis, Oracle</p>
+            <ul>
+                <li>维护员工档案、考勤及薪资计算模块。</li>
+                <li>使用 Oracle 存储过程优化批量薪资计算（性能提升 5 倍）。</li>
+                <li>参与接口对接、系统部署及用户培训。</li>
+                <li>协助编写技术文档及入职培训资料。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact">
+        <h2>联系方式</h2>
+        <div class="card">
+            <p>如果您对我的经历或项目感兴趣，欢迎随时联系我。</p>
+            <p><strong>邮箱：</strong> example@email.com</p>
+            <p><strong>GitHub:</strong> <a href="https://github.com/tzjne6-cmyk" target="_blank">tzjne6-cmyk</a></p>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    © 2024 谭镇俭 · 个人简历
+</footer>
+
+<script>
+function toggleLanguage() {
+    // 跳转到英文版页面
+    window.location.href = 'index.html';
+}
+</script>
+
+
+</body>
+</html>
